@@ -7,7 +7,7 @@ Written with DOS in mind.
 
 ## Requirements
 
-- IDA 7.x & Python 2
+- IDA 7.0+ & Python 2/3
 - `pip install -Ur requirements.txt`
 
 ## Components
