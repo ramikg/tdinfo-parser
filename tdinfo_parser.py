@@ -1,7 +1,8 @@
 import ida_idaapi
 import ida_kernwin
+import ida_nalt
 import ida_name
-import idc
+import ida_segment
 
 ida_idaapi.require('tdinfo_structs')
 
@@ -23,7 +24,7 @@ class TdinfoParserUnsupportedSymbolClassException(TdinfoParserException):
 
 
 def _parse_exe_file():
-    input_file_path = ida_kernwin.ask_file(False, idc.get_input_file_path(), 'Input file')
+    input_file_path = ida_kernwin.ask_file(False, ida_nalt.get_input_file_path(), 'Input file')
     parsed_file = tdinfo_structs.DOS_MZ_EXE_STRUCT.parse_file(input_file_path)
 
     print('Borland TLink symbolic information version: {}.{}'.format(
@@ -54,7 +55,7 @@ def _apply_tdinfo_symbol(image_base, name_pool, symbol):
 
 def apply_tdinfo_symbols():
     # A heuristic, since get_imagebase returns wrong result
-    image_base = idc.get_first_seg()
+    image_base = ida_segment.get_first_seg().start_ea
 
     parsed_exe_file = _parse_exe_file()
 
