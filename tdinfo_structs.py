@@ -1,7 +1,6 @@
 import enum
-from construct import (Struct, Const, OneOf, Int32ul, Int16ul, Byte, Bytes,
-                       Tell, Computed, this, Padding, CString, Enum, BitStruct,
-                       BitsInteger, Seek)
+from construct import (BitsInteger, BitStruct, Byte, Const, CString, Enum,
+                       Int16ul, Int32ul, Padding, Seek, Struct, Tell, this)
 
 TDINFO_MAGIC_LITTLE_ENDIAN = 0x52FB
 PAGE_SIZE_IN_BYTES = 512

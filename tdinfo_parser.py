@@ -44,7 +44,7 @@ def _apply_tdinfo_symbol(image_base, name_pool, symbol):
     if ida_name.get_name(symbol_ea) == symbol_name:
         raise TdinfoParserSymbolAlreadyAppliedException()
 
-    if (ida_name.set_name(symbol_ea, symbol_name)):
+    if ida_name.set_name(symbol_ea, symbol_name):
         print('Applied name {} to address {:04X}:{:04X}'.format(
             symbol_name,
             image_base // 0x10 + symbol.segment,
