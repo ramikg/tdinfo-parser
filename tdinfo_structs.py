@@ -76,6 +76,7 @@ class TypeId(enum.IntEnum):
     GLOBALHANDLE = 62
     LOCALHANDLE = 63
 
+
 SYMBOL_RECORD_STRUCT = Struct(
     'index' / Int16ul,  # 1-based
     'type' / Int16ul,
@@ -137,8 +138,8 @@ TDINFO_HEADER_STRUCT = Struct(
     'modules_count' / Int16ul,
     'locals_count' / Int16ul,
     'scopes_count' / Int16ul,
-    'linenumbers_count' / Int16ul,
-    'sourcefiles_count' / Int16ul,
+    'line_numbers_count' / Int16ul,
+    'source_files_count' / Int16ul,
     'segments_count' / Int16ul,
     'correlations_count' / Int16ul,
     Padding(14),
@@ -155,8 +156,8 @@ DOS_MZ_EXE_STRUCT = Struct(
     'tdinfo_header' / TDINFO_HEADER_STRUCT,
     'symbol_records' / SYMBOL_RECORD_STRUCT[this.tdinfo_header.symbols_count],
     'module_records' / MODULE_RECORD_STRUCT[this.tdinfo_header.modules_count],
-    Padding(this.tdinfo_header.sourcefiles_count * 6),
-    Padding(this.tdinfo_header.linenumbers_count * 4),
+    Padding(this.tdinfo_header.source_files_count * 6),
+    Padding(this.tdinfo_header.line_numbers_count * 4),
     'scope_records' / SCOPE_RECORD_STRUCT[this.tdinfo_header.scopes_count],
     'segment_records' / SEGMENT_RECORD_STRUCT[this.tdinfo_header.segments_count],
     Padding(this.tdinfo_header.correlations_count * 8),
