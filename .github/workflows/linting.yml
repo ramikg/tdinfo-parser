@@ -1,0 +1,23 @@
+name: Linting
+on: [push, pull_request]
+
+jobs:
+  Linting:
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['2.x', '3.x']
+    name: Linting (Python ${{ matrix.python-version }})
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          pip install -U pip flake8
+          pip install -Ur requirements.txt
+      - name: Run linting
+        run: |
+          flake8 --builtins "tdinfo_structs" --ignore E129,W503 --max-line-length 99
