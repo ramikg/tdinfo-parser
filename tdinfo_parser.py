@@ -27,7 +27,7 @@ def _parse_exe_file():
     input_file_path = ida_kernwin.ask_file(False, ida_nalt.get_input_file_path(), 'Input file')
     parsed_file = tdinfo_structs.DOS_MZ_EXE_STRUCT.parse_file(input_file_path)
 
-    print('Borland TLink symbolic information version: {}.{}'.format(
+    print('Borland TLink symbolic information version: {}.{:02}'.format(
         parsed_file.tdinfo_header.major_version,
         parsed_file.tdinfo_header.minor_version))
 
