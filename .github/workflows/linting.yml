@@ -16,8 +16,13 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          pip install --user -U pip flake8
+          pip install --user -U pip flake8 flake8-tidy-imports
           pip install --user -U -r requirements.txt
       - name: Run linting
         run: |
-          python -m flake8 --builtins "tdinfo_structs" --ignore E129,W503 --max-line-length 99
+          python -m flake8 `
+          --builtins "tdinfo_structs" `
+          --ignore E129,W503 `
+          --max-line-length 99 `
+          --banned-modules "idc=Module is subject to change without notice. Avoid using it" `
+          --banned-modules "idaapi=Module exists for backward compatibility. Use an ida_* module instead"
