@@ -1,3 +1,6 @@
+import binascii
+import os
+
 import ida_bytes
 import ida_frame
 import ida_funcs
@@ -16,6 +19,10 @@ TDINFO_MEMBER_INFO_END_MARKER = 0xC0
 
 
 class TdinfoParserException(Exception):
+    pass
+
+
+class TdinfoParserWrongInputFileCrcException(Exception):
     pass
 
 
@@ -56,8 +63,26 @@ class TdinfoParser(object):
         self._first_member_index_to_struct_tid = {}
 
     @staticmethod
+    def _find_exe_file():
+        file_path = ida_nalt.get_input_file_path()
+
+        if not os.path.isfile(file_path):
+            file_path = ida_kernwin.ask_file(False, file_path, 'Input file')
+
+        with open(file_path, 'rb') as file:
+            file_crc32 = binascii.crc32(file.read()) & 0xFFFFFFFF
+
+        original_crc32 = ida_nalt.retrieve_input_file_crc32() & 0xFFFFFFFF
+
+        if original_crc32 != file_crc32:
+            raise TdinfoParserWrongInputFileCrcException(
+                'Expected 0x{:08X}, got 0x{:08X}'.format(original_crc32, file_crc32))
+
+        return file_path
+
+    @staticmethod
     def _parse_exe_file():
-        input_file_path = ida_kernwin.ask_file(False, ida_nalt.get_input_file_path(), 'Input file')
+        input_file_path = TdinfoParser._find_exe_file()
         parsed_exe = tdinfo_structs.DOS_MZ_EXE_STRUCT.parse_file(input_file_path)
 
         print('Borland TLink symbolic information version: {}.{:02}'.format(

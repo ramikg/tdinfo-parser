@@ -20,7 +20,7 @@ This file is independent of IDA, and may be utilized to import the symbols into 
 
 0. Consider applying FLIRT signatures (see below).
 1. Press _Alt+F7_ to load _tdinfo_parser.py_ into IDA.
-2. Call `TdinfoParser().apply()`. When asked for, choose the relevant executable file.
+2. Call `TdinfoParser().apply()`.
 
 ## Some Turbo Tips
 
