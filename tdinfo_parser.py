@@ -220,7 +220,7 @@ class TdinfoParser(object):
         raise TdinfoParserUnsupportedTypeException()
 
     def _create_struct(self, symbol):
-        assert(self._is_struct_symbol(symbol))
+        assert self._is_struct_symbol(symbol)
 
         type_record = self._parsed_exe.type_records[symbol.type - 1]
         struct_name = self._get_name_from_pool(symbol.index)

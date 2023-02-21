@@ -16,7 +16,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          pip install --user -U pip flake8 flake8-tidy-imports
+          pip install --user -U flake8 flake8-tidy-imports
           pip install --user -U -r requirements.txt
       - name: Run linting
         run: |
