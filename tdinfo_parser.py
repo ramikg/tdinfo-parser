@@ -22,7 +22,7 @@ class TdinfoParserException(Exception):
     pass
 
 
-class TdinfoParserWrongInputFileCrcException(Exception):
+class TdinfoParserWrongInputFileCrcException(TdinfoParserException):
     pass
 
 
